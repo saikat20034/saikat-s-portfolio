@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#050814"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1600" height="1000" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle decorative ambient glows -->
+  <circle cx="200" cy="180" r="320" fill="#3b82f6" opacity="0.12" filter="blur(60px)"/>
+  <circle cx="1400" cy="400" r="380" fill="#8b5cf6" opacity="0.1" filter="blur(80px)"/>
+  <circle cx="900" cy="850" r="350" fill="#06b6d4" opacity="0.08" filter="blur(70px)"/>
+
+  <!-- Browser Window Frame -->
+  <g transform="translate(60, 40)" filter="url(#cardShadow)">
+    <rect width="1480" height="920" rx="16" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    
+    <!-- Window Titlebar -->
+    <rect width="1480" height="52" rx="16" fill="#1e293b"/>
+    <rect y="36" width="1480" height="16" fill="#1e293b"/>
+    <line x1="0" y1="52" x2="1480" y2="52" stroke="#334155" stroke-width="1"/>
+    
+    <!-- Window controls -->
+    <circle cx="30" cy="26" r="6.5" fill="#ef4444"/>
+    <circle cx="50" cy="26" r="6.5" fill="#f59e0b"/>
+    <circle cx="70" cy="26" r="6.5" fill="#10b981"/>
+    
+    <!-- URL search box -->
+    <rect x="420" y="11" width="640" height="30" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="740" y="31" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">
+      🔒 https://scholarsphere.vercel.app/scholarships
+    </text>
+
+    <!-- App Navigation Header -->
+    <g transform="translate(0, 52)">
+      <rect width="1480" height="70" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+      
+      <!-- Brand Logo -->
+      <g transform="translate(40, 20)">
+        <rect width="32" height="32" rx="8" fill="url(#accentGrad)"/>
+        <path d="M16 8 L26 14 L16 20 L6 14 Z M10 16.5 L10 22 C10 24 16 26 16 26 C16 26 22 24 22 22 L22 16.5" stroke="#ffffff" stroke-width="2" fill="none" stroke-linejoin="round"/>
+        <text x="44" y="23" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">ScholarSphere</text>
+      </g>
+
+      <!-- Nav links -->
+      <g transform="translate(480, 26)" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">
+        <text x="0" y="15" fill="#38bdf8">Browse Scholarships</text>
+        <line x1="0" y1="23" x2="145" y2="23" stroke="#38bdf8" stroke-width="2"/>
+        <text x="180" y="15" fill="#94a3b8">Eligibility Checker</text>
+        <text x="340" y="15" fill="#94a3b8">ScholarBot AI</text>
+        <text x="480" y="15" fill="#94a3b8">My Applications</text>
+      </g>
+
+      <!-- Profile & CTA -->
+      <g transform="translate(1260, 17)">
+        <rect width="175" height="36" rx="6" fill="url(#accentGrad)"/>
+        <text x="87" y="23" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle">Apply for Funding</text>
+      </g>
+    </g>
+
+    <!-- Hero / Headline Bar -->
+    <g transform="translate(40, 145)">
+      <!-- Badge -->
+      <rect width="250" height="28" rx="14" fill="#1e293b" stroke="#3b82f6" stroke-width="1"/>
+      <circle cx="16" cy="14" r="4" fill="#38bdf8"/>
+      <text x="30" y="19" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#38bdf8">GLOBAL ADMISSIONS &amp; GRANTS</text>
+
+      <text x="0" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="800" fill="#ffffff">
+        Discover &amp; Secure Your World-Class Scholarship
+      </text>
+      <text x="0" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="15" fill="#94a3b8">
+        Full-stack scholarship gateway featuring verified listings, eligibility match algorithms, and automated portal tracking.
+      </text>
+
+      <!-- Search & Filters Container -->
+      <g transform="translate(0, 130)">
+        <rect width="1400" height="64" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+        
+        <text x="25" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#64748b">🔍</text>
+        <text x="50" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#cbd5e1">Search by degree, country (e.g. Germany, UK, USA), or field...</text>
+        
+        <rect x="960" y="12" width="180" height="40" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+        <text x="980" y="37" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#cbd5e1">All Categories ▾</text>
+        
+        <rect x="1160" y="12" width="220" height="40" rx="8" fill="url(#cyanGrad)"/>
+        <text x="1270" y="37" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ffffff" text-anchor="middle">Find Scholarships</text>
+      </g>
+    </g>
+
+    <!-- Cards Grid -->
+    <g transform="translate(40, 375)">
+      <!-- Card 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="445" height="440" rx="14" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
+        <!-- Header color banner -->
+        <rect width="445" height="130" rx="14" fill="#1e1b4b"/>
+        <rect y="110" width="445" height="20" fill="#1e1b4b"/>
+        <rect x="25" y="25" width="100" height="24" rx="12" fill="#4338ca"/>
+        <text x="75" y="41" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#e0e7ff" text-anchor="middle">FULL RIDE</text>
+        
+        <text x="25" y="85" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#ffffff">Erasmus Mundus Joint Masters</text>
+        <text x="25" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#a5b4fc">European Union Consortia • Multi-Country</text>
+
+        <!-- Card Body -->
+        <g transform="translate(25, 155)">
+          <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">Grant Coverage: <tspan fill="#34d399" font-weight="600">€1,400/month + Full Tuition</tspan></text>
+          <text x="0" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">Application Fee: <tspan fill="#cbd5e1" font-weight="600">Waived / Free</tspan></text>
+          <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">Deadline: <tspan fill="#f87171" font-weight="600">Jan 15, 2027 (Active)</tspan></text>
+          
+          <rect y="75" width="395" height="1" fill="#334155"/>
+          
+          <text x="0" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">✓ Includes travel allowance and full health cover</text>
+          <text x="0" y="128" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">✓ Mobility across 2+ top European universities</text>
+          <text x="0" y="151" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">✓ Automated document &amp; SOP verification pipeline</text>
+
+          <rect y="190" width="395" height="42" rx="8" fill="url(#accentGrad)"/>
+          <text x="197" y="216" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ffffff" text-anchor="middle">Apply Now via Portal</text>
+        </g>
+      </g>
+
+      <!-- Card 2 -->
+      <g transform="translate(477, 0)">
+        <rect width="445" height="440" rx="14" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
+        <rect width="445" height="130" rx="14" fill="#064e3b"/>
+        <rect y="110" width="445" height="20" fill="#064e3b"/>
+        <rect x="25" y="25" width="110" height="24" rx="12" fill="#047857"/>
+        <text x="80" y="41" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#a7f3d0" text-anchor="middle">GOVERNMENT</text>
+
+        <text x="25" y="85" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#ffffff">DAAD Helmut-Schmidt Grant</text>
+        <text x="25" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#6ee7b7">Federal Republic of Germany • Master Degree</text>
+
+        <g transform="translate(25, 155)">
+          <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">Grant Coverage: <tspan fill="#34d399" font-weight="600">€934/month + Travel Subsidy</tspan></text>
+          <text x="0" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">Eligibility Score: <tspan fill="#38bdf8" font-weight="600">96% High Match</tspan></text>
+          <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">Deadline: <tspan fill="#f59e0b" font-weight="600">July 31, 2026</tspan></text>
+          
+          <rect y="75" width="395" height="1" fill="#334155"/>
+          
+          <text x="0" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">✓ Public Policy, Governance &amp; Tech Law fields</text>
+          <text x="0" y="128" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">✓ Includes 6-month intensive German language prep</text>
+          <text x="0" y="151" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">✓ Integrated Stripe payment for service fees</text>
+
+          <rect y="190" width="395" height="42" rx="8" fill="url(#emeraldGrad)"/>
+          <text x="197" y="216" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ffffff" text-anchor="middle">View Details &amp; Apply</text>
+        </g>
+      </g>
+
+      <!-- Card 3 -->
+      <g transform="translate(955, 0)">
+        <rect width="445" height="440" rx="14" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
+        <rect width="445" height="130" rx="14" fill="#312e81"/>
+        <rect y="110" width="445" height="20" fill="#312e81"/>
+        <rect x="25" y="25" width="100" height="24" rx="12" fill="#4338ca"/>
+        <text x="75" y="41" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#e0e7ff" text-anchor="middle">PRESTIGIOUS</text>
+
+        <text x="25" y="85" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#ffffff">UK Chevening Fellowship</text>
+        <text x="25" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#c7d2fe">FCDO United Kingdom • 1-Year Master</text>
+
+        <g transform="translate(25, 155)">
+          <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">Grant Coverage: <tspan fill="#34d399" font-weight="600">Full Tuition + Flights + Stipend</tspan></text>
+          <text x="0" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">Target Audience: <tspan fill="#cbd5e1" font-weight="600">Future Global Leaders</tspan></text>
+          <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8">AI Advisor: <tspan fill="#38bdf8" font-weight="600">Essay Review Available</tspan></text>
+          
+          <rect y="75" width="395" height="1" fill="#334155"/>
+          
+          <text x="0" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">✓ Access to exclusive UK diplomatic networks</text>
+          <text x="0" y="128" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">✓ Real-time status tracker on applicant dashboard</text>
+          <text x="0" y="151" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#cbd5e1">✓ Multi-role review engine for university admins</text>
+
+          <rect y="190" width="395" height="42" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+          <text x="197" y="216" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#38bdf8" text-anchor="middle">Explore Guidelines</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

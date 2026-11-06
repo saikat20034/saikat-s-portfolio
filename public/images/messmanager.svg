@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  <defs>
+    <linearGradient id="messBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#050810"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="blueGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="1000" fill="url(#messBg)"/>
+
+  <!-- Ambient glows -->
+  <circle cx="250" cy="220" r="340" fill="#f59e0b" opacity="0.1" filter="blur(70px)"/>
+  <circle cx="1380" cy="450" r="360" fill="#10b981" opacity="0.08" filter="blur(80px)"/>
+  <circle cx="850" cy="850" r="320" fill="#3b82f6" opacity="0.07" filter="blur(70px)"/>
+
+  <!-- Browser Frame -->
+  <g transform="translate(60, 40)" filter="url(#boxShadow)">
+    <rect width="1480" height="920" rx="16" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Titlebar -->
+    <rect width="1480" height="52" rx="16" fill="#1e293b"/>
+    <rect y="36" width="1480" height="16" fill="#1e293b"/>
+    <line x1="0" y1="52" x2="1480" y2="52" stroke="#334155" stroke-width="1"/>
+
+    <circle cx="30" cy="26" r="6.5" fill="#ef4444"/>
+    <circle cx="50" cy="26" r="6.5" fill="#f59e0b"/>
+    <circle cx="70" cy="26" r="6.5" fill="#10b981"/>
+
+    <rect x="420" y="11" width="640" height="30" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="740" y="31" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">
+      ⚡ https://smart-mess-manager.surge.sh/dashboard
+    </text>
+
+    <!-- Top App Navigation -->
+    <g transform="translate(0, 52)">
+      <rect width="1480" height="70" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+
+      <!-- Brand Logo -->
+      <g transform="translate(40, 20)">
+        <rect width="32" height="32" rx="8" fill="url(#amberGrad)"/>
+        <!-- Utensils icon -->
+        <path d="M12 9 L12 23 M10 9 L10 15 C10 16 14 16 14 15 L14 9 M20 9 L20 23 M17 9 L17 14 C17 16 20 16 20 16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <text x="44" y="23" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">Smart Mess Manager</text>
+        <rect x="250" y="2" width="130" height="24" rx="12" fill="#312e81"/>
+        <text x="315" y="18" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#c7d2fe" text-anchor="middle">MBSTU / DU HOSTEL</text>
+      </g>
+
+      <!-- Nav links -->
+      <g transform="translate(560, 26)" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">
+        <text x="0" y="15" fill="#f59e0b">Monthly Overview</text>
+        <line x1="0" y1="23" x2="115" y2="23" stroke="#f59e0b" stroke-width="2"/>
+        <text x="150" y="15" fill="#94a3b8">Meal Tracking</text>
+        <text x="280" y="15" fill="#94a3b8">Daily Bazar</text>
+        <text x="390" y="15" fill="#94a3b8">Deposits (bKash)</text>
+        <text x="530" y="15" fill="#94a3b8">Settlement Sheet</text>
+      </g>
+
+      <!-- Active Mode Switcher -->
+      <g transform="translate(1260, 17)">
+        <rect width="180" height="36" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="90" y="23" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#f59e0b" text-anchor="middle">👑 Manager Mode (Active)</text>
+      </g>
+    </g>
+
+    <!-- Financial Month & Actions Bar -->
+    <g transform="translate(40, 145)">
+      <text x="0" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#ffffff">
+        Padma Hall — Monthly Financial Settlement
+      </text>
+      <text x="0" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#94a3b8">
+        Real-time automated meal unit calculation ($0.5 \times$ breakfast + $1.0 \times$ lunch + $1.0 \times$ dinner), shared utilities &amp; deficit reconciliation.
+      </text>
+
+      <!-- Quick Action Buttons -->
+      <g transform="translate(1000, 5)">
+        <rect width="190" height="42" rx="8" fill="url(#emeraldGrad2)"/>
+        <text x="95" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle">+ Add Bazar Expense</text>
+
+        <rect x="210" y="0" width="190" height="42" rx="8" fill="url(#blueGrad2)"/>
+        <text x="305" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle">+ Record Deposit</text>
+      </g>
+    </g>
+
+    <!-- Key Metrics Cards (4 Stat Columns) -->
+    <g transform="translate(40, 225)">
+      <!-- Metric 1: Total Meals -->
+      <g transform="translate(0, 0)">
+        <rect width="332" height="120" rx="12" fill="url(#cardGrad2)" stroke="#334155" stroke-width="1.2"/>
+        <text x="24" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#94a3b8">TOTAL MESS MEALS</text>
+        <text x="24" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#ffffff">482.5 <tspan font-size="16" font-weight="500" fill="#94a3b8">Units</tspan></text>
+        <text x="24" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#34d399">↑ 18 active members logged</text>
+      </g>
+
+      <!-- Metric 2: Food & Bazar Expense -->
+      <g transform="translate(356, 0)">
+        <rect width="332" height="120" rx="12" fill="url(#cardGrad2)" stroke="#334155" stroke-width="1.2"/>
+        <text x="24" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#94a3b8">TOTAL BAZAR EXPENSES</text>
+        <text x="24" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#38bdf8">৳ 38,600</text>
+        <text x="24" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94a3b8">Daily grocery, meat, rice &amp; oil</text>
+      </g>
+
+      <!-- Metric 3: Current Meal Rate -->
+      <g transform="translate(712, 0)">
+        <rect width="332" height="120" rx="12" fill="url(#cardGrad2)" stroke="#f59e0b" stroke-width="1.8"/>
+        <text x="24" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#f59e0b">CURRENT MEAL RATE</text>
+        <text x="24" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#fbbf24">৳ 79.98 <tspan font-size="16" font-weight="500" fill="#fde68a">/ unit</tspan></text>
+        <text x="24" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#fde68a">Calculated dynamically: Total/Meals</text>
+      </g>
+
+      <!-- Metric 4: Shared Overhead -->
+      <g transform="translate(1068, 0)">
+        <rect width="332" height="120" rx="12" fill="url(#cardGrad2)" stroke="#334155" stroke-width="1.2"/>
+        <text x="24" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#94a3b8">SHARED OVERHEAD (GAS, COOK, WIFI)</text>
+        <text x="24" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#a78bfa">৳ 6,500</text>
+        <text x="24" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c4b5fd">৳ 361.11 / member flat rate</text>
+      </g>
+    </g>
+
+    <!-- Main Table Container: Member Settlement Sheet -->
+    <g transform="translate(40, 365)">
+      <rect width="1400" height="450" rx="14" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+
+      <!-- Table Header Bar -->
+      <rect width="1400" height="50" rx="14" fill="#1e293b"/>
+      <rect y="36" width="1400" height="14" fill="#1e293b"/>
+      <line x1="0" y1="50" x2="1400" y2="50" stroke="#334155" stroke-width="1"/>
+
+      <g transform="translate(30, 32)" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#94a3b8">
+        <text x="0" y="0">RESIDENT MEMBER</text>
+        <text x="260" y="0">ROOM</text>
+        <text x="380" y="0">MEAL UNITS</text>
+        <text x="530" y="0">FOOD COST</text>
+        <text x="690" y="0">SHARED OVERHEAD</text>
+        <text x="880" y="0">TOTAL DEPOSIT</text>
+        <text x="1060" y="0">NET BALANCE</text>
+        <text x="1230" y="0">STATUS</text>
+      </g>
+
+      <!-- Row 1 (Saikat / Manager) -->
+      <g transform="translate(0, 50)">
+        <rect width="1400" height="66" fill="#1e293b" opacity="0.3"/>
+        <line x1="0" y1="66" x2="1400" y2="66" stroke="#1f2937" stroke-width="1"/>
+        <g transform="translate(30, 38)" font-family="system-ui, -apple-system, sans-serif">
+          <text x="0" y="0" font-size="14" font-weight="700" fill="#ffffff">Mazharul Islam Saikat <tspan font-size="11" fill="#f59e0b">(Manager)</tspan></text>
+          <text x="260" y="0" font-size="13" fill="#cbd5e1">Room 304</text>
+          <text x="380" y="0" font-size="13" font-weight="600" fill="#ffffff">46.5 units</text>
+          <text x="530" y="0" font-size="13" fill="#cbd5e1">৳ 3,719</text>
+          <text x="690" y="0" font-size="13" fill="#cbd5e1">৳ 361</text>
+          <text x="880" y="0" font-size="13" font-weight="600" fill="#38bdf8">৳ 5,500 (bKash)</text>
+          <text x="1060" y="0" font-size="14" font-weight="700" fill="#34d399">+৳ 1,420</text>
+
+          <rect x="1230" y="-18" width="85" height="26" rx="13" fill="#065f46"/>
+          <text x="1272" y="-1" font-size="11" font-weight="700" fill="#a7f3d0" text-anchor="middle">SURPLUS</text>
+        </g>
+      </g>
+
+      <!-- Row 2 (Tanvir) -->
+      <g transform="translate(0, 116)">
+        <rect width="1400" height="66" fill="#111827"/>
+        <line x1="0" y1="66" x2="1400" y2="66" stroke="#1f2937" stroke-width="1"/>
+        <g transform="translate(30, 38)" font-family="system-ui, -apple-system, sans-serif">
+          <text x="0" y="0" font-size="14" font-weight="600" fill="#ffffff">Tanvir Ahmed</text>
+          <text x="260" y="0" font-size="13" fill="#cbd5e1">Room 304</text>
+          <text x="380" y="0" font-size="13" font-weight="600" fill="#ffffff">54.0 units</text>
+          <text x="530" y="0" font-size="13" fill="#cbd5e1">৳ 4,319</text>
+          <text x="690" y="0" font-size="13" fill="#cbd5e1">৳ 361</text>
+          <text x="880" y="0" font-size="13" font-weight="600" fill="#38bdf8">৳ 4,000 (Nagad)</text>
+          <text x="1060" y="0" font-size="14" font-weight="700" fill="#f87171">-৳ 680</text>
+
+          <rect x="1230" y="-18" width="85" height="26" rx="13" fill="#991b1b"/>
+          <text x="1272" y="-1" font-size="11" font-weight="700" fill="#fecaca" text-anchor="middle">DUE</text>
+        </g>
+      </g>
+
+      <!-- Row 3 (Rafiqul) -->
+      <g transform="translate(0, 182)">
+        <rect width="1400" height="66" fill="#1e293b" opacity="0.3"/>
+        <line x1="0" y1="66" x2="1400" y2="66" stroke="#1f2937" stroke-width="1"/>
+        <g transform="translate(30, 38)" font-family="system-ui, -apple-system, sans-serif">
+          <text x="0" y="0" font-size="14" font-weight="600" fill="#ffffff">Rafiqul Islam</text>
+          <text x="260" y="0" font-size="13" fill="#cbd5e1">Room 306</text>
+          <text x="380" y="0" font-size="13" font-weight="600" fill="#ffffff">39.0 units</text>
+          <text x="530" y="0" font-size="13" fill="#cbd5e1">৳ 3,119</text>
+          <text x="690" y="0" font-size="13" fill="#cbd5e1">৳ 361</text>
+          <text x="880" y="0" font-size="13" font-weight="600" fill="#38bdf8">৳ 4,500 (Bank)</text>
+          <text x="1060" y="0" font-size="14" font-weight="700" fill="#34d399">+৳ 1,020</text>
+
+          <rect x="1230" y="-18" width="85" height="26" rx="13" fill="#065f46"/>
+          <text x="1272" y="-1" font-size="11" font-weight="700" fill="#a7f3d0" text-anchor="middle">SURPLUS</text>
+        </g>
+      </g>
+
+      <!-- Row 4 (Shahadat) -->
+      <g transform="translate(0, 248)">
+        <rect width="1400" height="66" fill="#111827"/>
+        <line x1="0" y1="66" x2="1400" y2="66" stroke="#1f2937" stroke-width="1"/>
+        <g transform="translate(30, 38)" font-family="system-ui, -apple-system, sans-serif">
+          <text x="0" y="0" font-size="14" font-weight="600" fill="#ffffff">Shahadat Hossain</text>
+          <text x="260" y="0" font-size="13" fill="#cbd5e1">Room 308</text>
+          <text x="380" y="0" font-size="13" font-weight="600" fill="#ffffff">49.5 units</text>
+          <text x="530" y="0" font-size="13" fill="#cbd5e1">৳ 3,959</text>
+          <text x="690" y="0" font-size="13" fill="#cbd5e1">৳ 361</text>
+          <text x="880" y="0" font-size="13" font-weight="600" fill="#38bdf8">৳ 5,000 (bKash)</text>
+          <text x="1060" y="0" font-size="14" font-weight="700" fill="#34d399">+৳ 680</text>
+
+          <rect x="1230" y="-18" width="85" height="26" rx="13" fill="#065f46"/>
+          <text x="1272" y="-1" font-size="11" font-weight="700" fill="#a7f3d0" text-anchor="middle">SURPLUS</text>
+        </g>
+      </g>
+
+      <!-- Bottom Summary Footer Bar -->
+      <g transform="translate(0, 314)">
+        <rect width="1400" height="136" rx="14" fill="#0b1120"/>
+        <g transform="translate(30, 45)" font-family="system-ui, -apple-system, sans-serif">
+          <text x="0" y="0" font-size="13" font-weight="700" fill="#94a3b8">MONTH-END AUDIT SUMMARY:</text>
+          <text x="210" y="0" font-size="13" fill="#cbd5e1">Total Deposit Pool: <tspan font-weight="700" fill="#38bdf8">৳ 82,000</tspan></text>
+          <text x="460" y="0" font-size="13" fill="#cbd5e1">Total Mess Outflow: <tspan font-weight="700" fill="#f87171">৳ 45,100</tspan></text>
+          <text x="730" y="0" font-size="13" fill="#cbd5e1">Remaining Reserve: <tspan font-weight="700" fill="#34d399">৳ 36,900</tspan></text>
+
+          <rect x="1040" y="-22" width="290" height="44" rx="8" fill="url(#amberGrad)"/>
+          <text x="1185" y="5" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Export Full PDF &amp; Excel Report</text>
+
+          <text x="0" y="45" font-size="12" fill="#64748b">Verified with Supabase RLS &amp; Automated calculation testing suite (vitest &amp; jest)</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
