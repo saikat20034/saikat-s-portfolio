@@ -18,13 +18,13 @@ export const profile = {
 
 export const about = {
   paragraphs: [
-    "I'm an ICT graduate from Mawlana Bhashani Science and Technology University (MBSTU), currently pursuing an M.Sc. in ICT at the same institution. My academic foundation is paired with hands-on experience building full-stack web applications — from database design to deployed, working products.",
+    "I'm an ICT graduate from Mawlana Bhashani Science and Technology University (MBSTU), having appeared for an M.Sc. in ICT at the same institution. My academic foundation is paired with hands-on experience building full-stack web applications — from database design to deployed, working products.",
     'I specialize in the MERN stack (MongoDB, Express.js, React, Node.js) alongside HTML5, CSS3, JavaScript and Tailwind CSS, and I have formal training in relational database systems (MySQL/Oracle/SQL). I care about writing code that is structured, documented and maintainable — the same discipline I bring to any process I own.',
     "I'm currently exploring roles across banking operations, university administration, and e-commerce/dropshipping operations, where analytical thinking, attention to detail, and technical fluency add real value.",
   ],
   facts: [
     { label: 'Based in', value: 'Manikganj, Dhaka, Bangladesh' },
-    { label: 'Education', value: 'M.Sc. ICT (ongoing), MBSTU' },
+    { label: 'Education', value: 'M.Sc. ICT (Appeared), MBSTU' },
     { label: 'Core stack', value: 'React · Node.js · Express · MongoDB' },
     { label: 'Open to', value: 'Banking · Admin · E-commerce Ops' },
   ],
@@ -36,7 +36,7 @@ export const education = [
     code: 'EDU.04',
     institution: 'Mawlana Bhashani Science and Technology University',
     program: 'Information and Communication Technology',
-    result: 'Ongoing',
+    result: 'Appeared',
     year: '2025 – Present',
   },
   {
