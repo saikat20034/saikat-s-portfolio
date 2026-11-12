@@ -14,12 +14,12 @@ export default function About() {
           <motion.div
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
-            className="corner-frame group shadow-xl"
+            className="corner-frame group shadow-xl overflow-hidden bg-ink-950"
           >
             <img
               src={profile.photo}
               alt={profile.name}
-              className="w-full aspect-[4/5] object-cover grayscale-[15%] transition-all duration-500 group-hover:grayscale-0"
+              className="w-full aspect-[3/4] object-cover object-top contrast-[1.03] transition-all duration-500 group-hover:scale-105"
             />
           </motion.div>
         </Reveal>

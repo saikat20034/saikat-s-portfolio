@@ -189,14 +189,14 @@ export default function Hero() {
           className="justify-self-center md:justify-self-end"
         >
           <motion.div
-            whileHover={{ scale: 1.03 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
-            className="corner-frame w-56 h-56 sm:w-72 sm:h-72 shadow-2xl relative group cursor-pointer"
+            className="corner-frame w-64 h-[340px] sm:w-80 sm:h-[430px] shadow-2xl relative group cursor-pointer overflow-hidden bg-ink-950"
           >
             <img
               src={profile.photo}
               alt={profile.name}
-              className="w-full h-full object-cover grayscale-[15%] contrast-[1.05] transition-all duration-500 group-hover:grayscale-0 group-hover:contrast-100"
+              className="w-full h-full object-cover object-top contrast-[1.03] transition-all duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 border border-brass-500/20 pointer-events-none group-hover:border-brass-500/60 transition-colors" />
           </motion.div>
