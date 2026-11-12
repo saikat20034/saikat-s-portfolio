@@ -17,7 +17,7 @@ export default function About() {
             className="corner-frame group shadow-xl overflow-hidden bg-ink-950"
           >
             <img
-              src={profile.photo}
+              src={profile.aboutPhoto || profile.photo}
               alt={profile.name}
               className="w-full aspect-[3/4] object-cover object-top contrast-[1.03] transition-all duration-500 group-hover:scale-105"
             />

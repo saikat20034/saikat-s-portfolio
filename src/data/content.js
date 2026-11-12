@@ -11,7 +11,9 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/md-mazharul-islam-saikat-65bab2299/',
   facebook: 'https://www.facebook.com/mdmazharulislam.saikat.7/',
   resume: '/resume/Mazharul_Islam_Resume.pdf',
-  photo: '/images/about.jpg',
+  heroPhoto: '/images/hero-photo.jpg',
+  aboutPhoto: '/images/about-photo.jpg',
+  photo: '/images/hero-photo.jpg',
 };
 
 export const about = {

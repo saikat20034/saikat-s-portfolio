@@ -194,7 +194,7 @@ export default function Hero() {
             className="corner-frame w-64 h-[340px] sm:w-80 sm:h-[430px] shadow-2xl relative group cursor-pointer overflow-hidden bg-ink-950"
           >
             <img
-              src={profile.photo}
+              src={profile.heroPhoto || profile.photo}
               alt={profile.name}
               className="w-full h-full object-cover object-top contrast-[1.03] transition-all duration-500 group-hover:scale-105"
             />
