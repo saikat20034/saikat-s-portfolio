@@ -2,12 +2,13 @@
  * Single-Page, ATS-Friendly, Production-Grade PDF Resume Generator
  * for Md. Mazharul Islam (Saikat)
  * 
- * Specs:
+ * Strict Specs:
  * - Exactly 1 Page (A4)
- * - Single-column linear layout (highest ATS parse rate)
- * - Standard Type1 Helvetica / Helvetica-Bold typography
- * - Clean semantic hierarchy with clickable vector hyperlinks
- * - Zero graphical clutter or non-standard symbols
+ * - Pure standard ASCII text (code points 32..126) — ZERO garbled Unicode artifacts
+ * - Single-column linear layout for maximum ATS compatibility
+ * - Clean clickable names: Gmail | GitHub | LinkedIn | Portfolio
+ * - No WhatsApp
+ * - No em-dash/en-dash signs (replaced with clean standard commas/hyphens)
  */
 
 import fs from 'fs';
@@ -31,8 +32,7 @@ const HELVETICA_WIDTHS = {
   'a': 556, 'b': 556, 'c': 500, 'd': 556, 'e': 556, 'f': 278, 'g': 556, 'h': 556,
   'i': 222, 'j': 222, 'k': 500, 'l': 222, 'm': 833, 'n': 556, 'o': 556, 'p': 556,
   'q': 556, 'r': 333, 's': 500, 't': 278, 'u': 556, 'v': 500, 'w': 722, 'x': 500,
-  'y': 500, 'z': 500, '{': 334, '|': 260, '}': 334, '~': 584, '•': 400, '·': 278,
-  '–': 556, '—': 1000
+  'y': 500, 'z': 500, '{': 334, '|': 260, '}': 334, '~': 584
 };
 
 function getTextWidth(text, size, isBold = false) {
@@ -46,7 +46,21 @@ function getTextWidth(text, size, isBold = false) {
 }
 
 function escapePdfString(str) {
-  return str.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
+  // Ensure pure ASCII only
+  let clean = '';
+  for (let i = 0; i < str.length; i++) {
+    const code = str.charCodeAt(i);
+    if (code >= 32 && code <= 126) {
+      clean += str[i];
+    } else if (code === 8211 || code === 8212) {
+      clean += '-';
+    } else if (code === 8226) {
+      clean += '*';
+    } else {
+      clean += ' ';
+    }
+  }
+  return clean.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
 }
 
 class SinglePagePdf {
@@ -248,7 +262,7 @@ export function buildSinglePageResume() {
   const contentWidth = 523.28;
   const rightX = leftX + contentWidth;
 
-  // Modern ATS-Friendly Colors (High contrast, crisp dark slate + subtle tech blue accent)
+  // Modern ATS-Friendly Colors
   const PRIMARY = [0.07, 0.13, 0.22];      // #122137 Dark Slate Navy for headings
   const BODY = [0.12, 0.15, 0.20];         // #1F2633 Charcoal for readability
   const MUTED = [0.38, 0.44, 0.52];        // #617085 Dates & metadata
@@ -259,8 +273,9 @@ export function buildSinglePageResume() {
   let y = doc.height - 34;
 
   // -------------------------------------------------------------------------
-  // 1. HEADER (Minimalist, ATS-Standard)
+  // 1. HEADER (Minimalist, ATS-Standard, Pure Names with Clickable Links)
   // -------------------------------------------------------------------------
+  // Full Name
   doc.text('MD. MAZHARUL ISLAM (SAIKAT)', leftX, y, {
     font: 'F2',
     size: 20,
@@ -268,63 +283,58 @@ export function buildSinglePageResume() {
   });
   y -= 16;
 
-  doc.text('Full-Stack (MERN) Developer  |  ICT Graduate — MBSTU', leftX, y, {
+  // Subtitle (No em-dash / en-dash, clean comma)
+  doc.text('Full-Stack (MERN) Developer | ICT Graduate, MBSTU', leftX, y, {
     font: 'F2',
     size: 10.5,
     color: MUTED,
   });
   y -= 14;
 
-  // Contact Info Row 1 (Location, Email, Phone, WhatsApp)
-  doc.text('Manikganj, Dhaka, Bangladesh', leftX, y, { font: 'F1', size: 8.8, color: BODY });
-  doc.text('|', leftX + 130, y, { font: 'F1', size: 8.8, color: LINE });
+  // Contact Row: Location, Phone, and Clickable Names for Gmail, GitHub, LinkedIn, Portfolio
+  // Zero WhatsApp, clean name labels with active hyperlinks
+  let curX = leftX;
 
-  doc.text('mazharulislamsaikat2000@gmail.com', leftX + 138, y, {
-    font: 'F1',
-    size: 8.8,
-    color: LINK,
-    link: 'mailto:mazharulislamsaikat2000@gmail.com',
-  });
-  doc.text('|', leftX + 298, y, { font: 'F1', size: 8.8, color: LINE });
+  curX += doc.text('Manikganj, Dhaka, Bangladesh', curX, y, { font: 'F1', size: 9, color: BODY }) + 8;
+  curX += doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE }) + 8;
 
-  doc.text('+880 1630 496007', leftX + 306, y, {
+  curX += doc.text('+880 1630 496007', curX, y, {
     font: 'F1',
-    size: 8.8,
+    size: 9,
     color: BODY,
     link: 'tel:+8801630496007',
-  });
-  doc.text('|', leftX + 392, y, { font: 'F1', size: 8.8, color: LINE });
+  }) + 8;
+  curX += doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE }) + 8;
 
-  doc.text('WhatsApp: +880 1630 496007', leftX + 400, y, {
-    font: 'F1',
-    size: 8.8,
-    color: LINK,
-    link: 'https://wa.me/8801630496007',
-  });
-  y -= 13;
-
-  // Contact Info Row 2 (GitHub, LinkedIn, Live Portfolio)
-  doc.text('GitHub: github.com/saikat20034', leftX, y, {
+  curX += doc.text('Gmail', curX, y, {
     font: 'F2',
-    size: 8.8,
+    size: 9,
+    color: LINK,
+    link: 'mailto:mazharulislamsaikat2000@gmail.com',
+  }) + 8;
+  curX += doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE }) + 8;
+
+  curX += doc.text('GitHub', curX, y, {
+    font: 'F2',
+    size: 9,
     color: LINK,
     link: 'https://github.com/saikat20034',
-  });
-  doc.text('|', leftX + 148, y, { font: 'F1', size: 8.8, color: LINE });
+  }) + 8;
+  curX += doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE }) + 8;
 
-  doc.text('LinkedIn: linkedin.com/in/md-mazharul-islam-saikat-65bab2299', leftX + 158, y, {
+  curX += doc.text('LinkedIn', curX, y, {
     font: 'F2',
-    size: 8.8,
+    size: 9,
     color: LINK,
     link: 'https://www.linkedin.com/in/md-mazharul-islam-saikat-65bab2299/',
-  });
-  doc.text('|', leftX + 418, y, { font: 'F1', size: 8.8, color: LINE });
+  }) + 8;
+  curX += doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE }) + 8;
 
-  doc.text('Portfolio: saikat20034.github.io', leftX + 428, y, {
+  curX += doc.text('Portfolio', curX, y, {
     font: 'F2',
-    size: 8.8,
+    size: 9,
     color: LINK,
-    link: 'https://github.com/saikat20034',
+    link: 'https://saikat20034.github.io/saikat-s-portfolio',
   });
 
   y -= 11;
@@ -387,32 +397,36 @@ export function buildSinglePageResume() {
   drawSectionHeading('Featured Technical Projects');
 
   function drawProject(name, subtitle, techStack, bullets, liveUrl, codeUrl) {
+    // Project title & subtitle (standard ASCII hyphen instead of em-dash)
     doc.text(name, leftX, y, { font: 'F2', size: 9.8, color: PRIMARY });
     const nameW = getTextWidth(name, 9.8, true);
-    doc.text(`— ${subtitle}`, leftX + nameW + 5, y, { font: 'F1', size: 8.6, color: MUTED });
+    doc.text(`- ${subtitle}`, leftX + nameW + 5, y, { font: 'F1', size: 8.6, color: MUTED });
 
-    let curX = rightX;
+    // Clickable Links right-aligned
+    let curR = rightX;
     if (codeUrl) {
       const codeLabel = 'GitHub';
       const cW = getTextWidth(codeLabel, 8.2, true);
-      curX -= cW;
-      doc.text(codeLabel, curX, y, { font: 'F2', size: 8.2, color: LINK, link: codeUrl });
-      curX -= 7;
-      doc.text('|', curX, y, { font: 'F1', size: 8.2, color: LINE });
-      curX -= 7;
+      curR -= cW;
+      doc.text(codeLabel, curR, y, { font: 'F2', size: 8.2, color: LINK, link: codeUrl });
+      curR -= 7;
+      doc.text('|', curR, y, { font: 'F1', size: 8.2, color: LINE });
+      curR -= 7;
     }
     if (liveUrl) {
       const liveLabel = 'Live Demo';
       const lW = getTextWidth(liveLabel, 8.2, true);
-      curX -= lW;
-      doc.text(liveLabel, curX, y, { font: 'F2', size: 8.2, color: LINK, link: liveUrl });
+      curR -= lW;
+      doc.text(liveLabel, curR, y, { font: 'F2', size: 8.2, color: LINK, link: liveUrl });
     }
     y -= 10;
 
+    // Tech Stack Line
     doc.text('Technologies:', leftX + 8, y, { font: 'F2', size: 8.2, color: MUTED });
     doc.text(techStack, leftX + 72, y, { font: 'F1', size: 8.2, color: PRIMARY });
     y -= 10;
 
+    // Bullets with aligned wrapping
     for (const b of bullets) {
       doc.setFillColor(...PRIMARY);
       doc.rect(leftX + 4, y - 4.5, 2, 2, true, false);
@@ -517,10 +531,10 @@ export function buildSinglePageResume() {
     'https://github.com/saikat20034/TradeNest'
   );
 
-  // Additional projects one-liner
+  // Additional projects one-liner (clean commas and parentheses)
   doc.text('Other Projects:', leftX + 8, y - 1, { font: 'F2', size: 8.3, color: MUTED });
   doc.text(
-    'HotelHive (hotel booking & room reservation system)  ·  VisaLand (international visa guidance and application tracking portal)',
+    'HotelHive (hotel booking & room reservation system), VisaLand (international visa guidance and application tracking portal)',
     leftX + 76,
     y - 1,
     { font: 'F1', size: 8.3, color: BODY }
@@ -559,31 +573,31 @@ export function buildSinglePageResume() {
 
   drawEducation(
     'M.Sc. in Information and Communication Technology',
-    'Mawlana Bhashani Science and Technology University (MBSTU) — Tangail, Bangladesh',
+    'Mawlana Bhashani Science and Technology University (MBSTU), Tangail, Bangladesh',
     'Appeared',
-    '2025 – Present',
+    '2025 - Present',
     true
   );
 
   drawEducation(
     'B.Sc. (Honours) in Information and Communication Technology',
-    'Mawlana Bhashani Science and Technology University (MBSTU) — Tangail, Bangladesh',
+    'Mawlana Bhashani Science and Technology University (MBSTU), Tangail, Bangladesh',
     'CGPA 3.07 / 4.00',
-    '2020 – 2025',
+    '2020 - 2025',
     false
   );
 
   drawEducation(
-    'Higher Secondary Certificate (H.S.C.) — Science Group',
-    'Govt. Debendra College, Manikganj — Dhaka Board',
+    'Higher Secondary Certificate (H.S.C.) - Science Group',
+    'Govt. Debendra College, Manikganj, Dhaka Board',
     'GPA 4.25 / 5.00',
     '2018',
     false
   );
 
   drawEducation(
-    'Secondary School Certificate (S.S.C.) — Science Group',
-    'Daragram High School, Manikganj — Dhaka Board',
+    'Secondary School Certificate (S.S.C.) - Science Group',
+    'Daragram High School, Manikganj, Dhaka Board',
     'GPA 4.89 / 5.00',
     '2016',
     false
@@ -609,15 +623,15 @@ export function buildSinglePageResume() {
 
   drawCertification(
     'Database (MySQL / Oracle / SQL) Professional Training (80 Hours)',
-    'Dept. of ICT, MBSTU — under EDGE Project, Bangladesh Computer Council (BCC), ICT Division',
-    'Dec 2024 – Jul 2025',
+    'Dept. of ICT, MBSTU (EDGE Project, Bangladesh Computer Council, ICT Division)',
+    'Dec 2024 - Jul 2025',
     'Advanced relational modeling, 3NF normalization, index optimization, complex joins, triggers, stored procedures, and ACID transactions.'
   );
 
   drawCertification(
     'Complete Web Development Course (MERN Stack)',
-    'Programming Hero — Batch 10',
-    'Dec 2023 – Jun 2024',
+    'Programming Hero (Batch 10)',
+    'Dec 2023 - Jun 2024',
     'Intensive training in MongoDB, Express.js, React, Node.js, RESTful APIs, Firebase Authentication, and production deployments.'
   );
   y -= 4;
@@ -643,14 +657,12 @@ export function buildSinglePageResume() {
     y -= 11.5;
   }
 
-  // -------------------------------------------------------------------------
-  // Subtle Bottom Footer Verification Rule
-  // -------------------------------------------------------------------------
+  // Bottom Footer
   y -= 2;
   doc.setStrokeColor(...LINE);
   doc.setLineWidth(0.5);
   doc.line(leftX, 26, rightX, 26);
-  doc.text('Md. Mazharul Islam  ·  Full-Stack Developer Resume  ·  Single-Page ATS Edition', leftX, 17, { font: 'F1', size: 7.8, color: MUTED });
+  doc.text('Md. Mazharul Islam | Full-Stack Developer Resume | Single-Page ATS Edition', leftX, 17, { font: 'F1', size: 7.8, color: MUTED });
   doc.text('Verified & Updated November 2026', rightX - 138, 17, { font: 'F1', size: 7.8, color: MUTED });
 
   return doc.compile();
