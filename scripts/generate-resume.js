@@ -4,11 +4,13 @@
  * 
  * Strict Specs:
  * - Exactly 1 Page (A4)
- * - Pure standard ASCII text (code points 32..126) — ZERO garbled Unicode artifacts
+ * - Pure standard ASCII text (code points 32..126) - ZERO garbled Unicode artifacts
  * - Single-column linear layout for maximum ATS compatibility
+ * - Mathematically balanced header spacing (justified across page margins)
+ * - Harmonious, consistent vertical rhythm across all sections
  * - Clean clickable names: Gmail | GitHub | LinkedIn | Portfolio
  * - No WhatsApp
- * - No em-dash/en-dash signs (replaced with clean standard commas/hyphens)
+ * - No non-ASCII dash signs
  */
 
 import fs from 'fs';
@@ -46,7 +48,6 @@ function getTextWidth(text, size, isBold = false) {
 }
 
 function escapePdfString(str) {
-  // Ensure pure ASCII only
   let clean = '';
   for (let i = 0; i < str.length; i++) {
     const code = str.charCodeAt(i);
@@ -144,7 +145,7 @@ class SinglePagePdf {
   }
 
   wrappedText(str, x, y, maxWidth, options = {}) {
-    const { font = 'F1', size = 8.8, lineHeight = 12.2, color = [0.15, 0.15, 0.15] } = options;
+    const { font = 'F1', size = 8.7, lineHeight = 13.0, color = [0.15, 0.15, 0.15] } = options;
     const isBold = font === 'F2' || font === 'F4';
     const words = str.split(' ');
     let currentLine = '';
@@ -264,16 +265,16 @@ export function buildSinglePageResume() {
 
   // Modern ATS-Friendly Colors
   const PRIMARY = [0.07, 0.13, 0.22];      // #122137 Dark Slate Navy for headings
-  const BODY = [0.12, 0.15, 0.20];         // #1F2633 Charcoal for readability
-  const MUTED = [0.38, 0.44, 0.52];        // #617085 Dates & metadata
+  const BODY = [0.12, 0.15, 0.20];         // #1F2633 Charcoal body text
+  const MUTED = [0.38, 0.44, 0.52];        // #617085 Subdued Meta / Dates
   const LINK = [0.10, 0.38, 0.78];         // #1A61C7 Clean Link Blue
-  const LINE = [0.82, 0.85, 0.90];         // #D1D9E6 Subtle Divider
+  const LINE = [0.82, 0.85, 0.90];         // #D1D9E6 Subtle Divider Line
   const BADGE_GREEN = [0.05, 0.52, 0.30];  // Emerald for "Appeared"
 
-  let y = doc.height - 34;
+  let y = doc.height - 36;
 
   // -------------------------------------------------------------------------
-  // 1. HEADER (Minimalist, ATS-Standard, Pure Names with Clickable Links)
+  // 1. HEADER (Harmonious Spacing & Mathematically Justified Contact Bar)
   // -------------------------------------------------------------------------
   // Full Name
   doc.text('MD. MAZHARUL ISLAM (SAIKAT)', leftX, y, {
@@ -281,74 +282,65 @@ export function buildSinglePageResume() {
     size: 20,
     color: PRIMARY,
   });
-  y -= 16;
+  y -= 18;
 
-  // Subtitle (No em-dash / en-dash, clean comma)
+  // Subtitle (Clean comma, no non-ASCII characters)
   doc.text('Full-Stack (MERN) Developer | ICT Graduate, MBSTU', leftX, y, {
     font: 'F2',
     size: 10.5,
     color: MUTED,
   });
-  y -= 14;
+  y -= 17;
 
-  // Contact Row: Location, Phone, and Clickable Names for Gmail, GitHub, LinkedIn, Portfolio
-  // Zero WhatsApp, clean name labels with active hyperlinks
+  // Contact Row: Evenly justified from leftX to rightX with mathematical symmetry
+  const contactItems = [
+    { text: 'Manikganj, Dhaka, Bangladesh', font: 'F1', size: 9, color: BODY, link: null },
+    { text: '+880 1630 496007', font: 'F1', size: 9, color: BODY, link: 'tel:+8801630496007' },
+    { text: 'Gmail', font: 'F2', size: 9, color: LINK, link: 'mailto:mazharulislamsaikat2000@gmail.com' },
+    { text: 'GitHub', font: 'F2', size: 9, color: LINK, link: 'https://github.com/saikat20034' },
+    { text: 'LinkedIn', font: 'F2', size: 9, color: LINK, link: 'https://www.linkedin.com/in/md-mazharul-islam-saikat-65bab2299/' },
+    { text: 'Portfolio', font: 'F2', size: 9, color: LINK, link: 'https://saikat20034.github.io/saikat-s-portfolio' },
+  ];
+
+  const pipeWidth = getTextWidth('|', 9, false);
+  let totalTextWidth = 0;
+  for (const item of contactItems) {
+    totalTextWidth += getTextWidth(item.text, item.size, item.font === 'F2');
+  }
+  const totalPipesWidth = (contactItems.length - 1) * pipeWidth;
+  const remainingSpace = contentWidth - (totalTextWidth + totalPipesWidth);
+  const sideGap = remainingSpace / ((contactItems.length - 1) * 2);
+
   let curX = leftX;
+  for (let i = 0; i < contactItems.length; i++) {
+    const item = contactItems[i];
+    const w = doc.text(item.text, curX, y, {
+      font: item.font,
+      size: item.size,
+      color: item.color,
+      link: item.link,
+    });
+    curX += w;
 
-  curX += doc.text('Manikganj, Dhaka, Bangladesh', curX, y, { font: 'F1', size: 9, color: BODY }) + 8;
-  curX += doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE }) + 8;
+    if (i < contactItems.length - 1) {
+      curX += sideGap;
+      doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE });
+      curX += pipeWidth + sideGap;
+    }
+  }
 
-  curX += doc.text('+880 1630 496007', curX, y, {
-    font: 'F1',
-    size: 9,
-    color: BODY,
-    link: 'tel:+8801630496007',
-  }) + 8;
-  curX += doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE }) + 8;
-
-  curX += doc.text('Gmail', curX, y, {
-    font: 'F2',
-    size: 9,
-    color: LINK,
-    link: 'mailto:mazharulislamsaikat2000@gmail.com',
-  }) + 8;
-  curX += doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE }) + 8;
-
-  curX += doc.text('GitHub', curX, y, {
-    font: 'F2',
-    size: 9,
-    color: LINK,
-    link: 'https://github.com/saikat20034',
-  }) + 8;
-  curX += doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE }) + 8;
-
-  curX += doc.text('LinkedIn', curX, y, {
-    font: 'F2',
-    size: 9,
-    color: LINK,
-    link: 'https://www.linkedin.com/in/md-mazharul-islam-saikat-65bab2299/',
-  }) + 8;
-  curX += doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE }) + 8;
-
-  curX += doc.text('Portfolio', curX, y, {
-    font: 'F2',
-    size: 9,
-    color: LINK,
-    link: 'https://saikat20034.github.io/saikat-s-portfolio',
-  });
-
-  y -= 11;
+  y -= 13;
   doc.setStrokeColor(...LINE);
   doc.setLineWidth(0.75);
   doc.line(leftX, y, rightX, y);
-  y -= 14;
+  y -= 17;
 
-  // Section Heading Helper
+  // Consistent Section Heading Function
   function drawSectionHeading(heading) {
     doc.text(heading.toUpperCase(), leftX, y, { font: 'F2', size: 10, color: PRIMARY });
     doc.setStrokeColor(...PRIMARY);
     doc.setLineWidth(1.0);
-    doc.line(leftX, y - 2.5, rightX, y - 2.5);
+    doc.line(leftX, y - 3.5, rightX, y - 3.5);
     y -= 12.5;
   }
 
@@ -362,10 +354,10 @@ export function buildSinglePageResume() {
   const { endY: sumY } = doc.wrappedText(summary, leftX, y, contentWidth, {
     font: 'F1',
     size: 8.7,
-    lineHeight: 12.2,
+    lineHeight: 12.8,
     color: BODY,
   });
-  y = sumY - 7;
+  y = sumY - 16;
 
   // -------------------------------------------------------------------------
   // 3. TECHNICAL SKILLS
@@ -387,22 +379,22 @@ export function buildSinglePageResume() {
     doc.text(`${sk.label}:`, leftX + 8, y - 6.5, { font: 'F2', size: 8.7, color: PRIMARY });
     const lblW = getTextWidth(`${sk.label}:`, 8.7, true);
     doc.text(sk.items, leftX + 12 + lblW, y - 6.5, { font: 'F1', size: 8.5, color: BODY });
-    y -= 12;
+    y -= 13.5;
   }
-  y -= 5;
+  y -= 6;
 
   // -------------------------------------------------------------------------
-  // 4. FEATURED PROJECTS
+  // 4. FEATURED PROJECTS (Generous 14 pt spacing between projects)
   // -------------------------------------------------------------------------
   drawSectionHeading('Featured Technical Projects');
 
-  function drawProject(name, subtitle, techStack, bullets, liveUrl, codeUrl) {
-    // Project title & subtitle (standard ASCII hyphen instead of em-dash)
+  function drawProject(name, subtitle, techStack, bullets, liveUrl, codeUrl, isLast = false) {
+    // Project title & subtitle
     doc.text(name, leftX, y, { font: 'F2', size: 9.8, color: PRIMARY });
     const nameW = getTextWidth(name, 9.8, true);
     doc.text(`- ${subtitle}`, leftX + nameW + 5, y, { font: 'F1', size: 8.6, color: MUTED });
 
-    // Clickable Links right-aligned
+    // Right-aligned interactive links
     let curR = rightX;
     if (codeUrl) {
       const codeLabel = 'GitHub';
@@ -419,14 +411,14 @@ export function buildSinglePageResume() {
       curR -= lW;
       doc.text(liveLabel, curR, y, { font: 'F2', size: 8.2, color: LINK, link: liveUrl });
     }
-    y -= 10;
+    y -= 11;
 
     // Tech Stack Line
     doc.text('Technologies:', leftX + 8, y, { font: 'F2', size: 8.2, color: MUTED });
     doc.text(techStack, leftX + 72, y, { font: 'F1', size: 8.2, color: PRIMARY });
-    y -= 10;
+    y -= 11;
 
-    // Bullets with aligned wrapping
+    // Bullets with clean aligned indentation
     for (const b of bullets) {
       doc.setFillColor(...PRIMARY);
       doc.rect(leftX + 4, y - 4.5, 2, 2, true, false);
@@ -451,7 +443,7 @@ export function buildSinglePageResume() {
         wIdx++;
       }
       doc.text(line1, indent + prefixW, y - 5, { font: 'F1', size: 8.5, color: BODY });
-      y -= 11;
+      y -= 12;
 
       let restLine = '';
       const fullLineWidth = contentWidth - 13;
@@ -459,7 +451,7 @@ export function buildSinglePageResume() {
         const test = restLine ? restLine + ' ' + words[wIdx] : words[wIdx];
         if (getTextWidth(test, 8.5, false) > fullLineWidth && restLine) {
           doc.text(restLine, indent, y - 5, { font: 'F1', size: 8.5, color: BODY });
-          y -= 11;
+          y -= 12;
           restLine = words[wIdx];
         } else {
           restLine = test;
@@ -468,10 +460,14 @@ export function buildSinglePageResume() {
       }
       if (restLine) {
         doc.text(restLine, indent, y - 5, { font: 'F1', size: 8.5, color: BODY });
-        y -= 11;
+        y -= 12;
       }
     }
-    y -= 3;
+
+    // Inter-project gap: 14 pt for clean distinct separation
+    if (!isLast) {
+      y -= 11;
+    }
   }
 
   // Project 1: ScholarSphere
@@ -490,7 +486,8 @@ export function buildSinglePageResume() {
       }
     ],
     'https://scholarsphere.vercel.app',
-    'https://github.com/saikat20034/scholarsphere-client'
+    'https://github.com/saikat20034/scholarsphere-client',
+    false
   );
 
   // Project 2: Smart Mess Manager
@@ -509,7 +506,8 @@ export function buildSinglePageResume() {
       }
     ],
     'https://smart-mess-manager.surge.sh',
-    'https://github.com/saikat20034/smart-mess-manager-frontend'
+    'https://github.com/saikat20034/smart-mess-manager-frontend',
+    false
   );
 
   // Project 3: TradeNest
@@ -528,25 +526,28 @@ export function buildSinglePageResume() {
       }
     ],
     null,
-    'https://github.com/saikat20034/TradeNest'
+    'https://github.com/saikat20034/TradeNest',
+    true
   );
 
-  // Additional projects one-liner (clean commas and parentheses)
-  doc.text('Other Projects:', leftX + 8, y - 1, { font: 'F2', size: 8.3, color: MUTED });
+  y -= 9;
+
+  // Additional projects line
+  doc.text('Other Projects:', leftX + 8, y, { font: 'F2', size: 8.3, color: MUTED });
   doc.text(
     'HotelHive (hotel booking & room reservation system), VisaLand (international visa guidance and application tracking portal)',
     leftX + 76,
-    y - 1,
+    y,
     { font: 'F1', size: 8.3, color: BODY }
   );
-  y -= 15;
+  y -= 17;
 
   // -------------------------------------------------------------------------
-  // 5. EDUCATION
+  // 5. EDUCATION (Consistent 10 pt gap between degree entries)
   // -------------------------------------------------------------------------
   drawSectionHeading('Education');
 
-  function drawEducation(degree, institute, resultOrStatus, year, isAppeared = false) {
+  function drawEducation(degree, institute, resultOrStatus, year, isAppeared = false, isLast = false) {
     doc.text(degree, leftX, y, { font: 'F2', size: 9.4, color: PRIMARY });
     const degW = getTextWidth(degree, 9.4, true);
 
@@ -554,12 +555,12 @@ export function buildSinglePageResume() {
       doc.setFillColor(0.92, 0.98, 0.94);
       doc.setStrokeColor(...BADGE_GREEN);
       doc.setLineWidth(0.5);
-      doc.roundedRect(leftX + degW + 5, y - 6.5, 48, 9.5, 2, true, true);
-      doc.text('APPEARED', leftX + degW + 8, y - 4.8, { font: 'F2', size: 7.0, color: BADGE_GREEN });
+      doc.roundedRect(leftX + degW + 6, y - 6.5, 48, 9.5, 2, true, true);
+      doc.text('APPEARED', leftX + degW + 9, y - 4.8, { font: 'F2', size: 7.0, color: BADGE_GREEN });
     }
 
     doc.text(year, rightX - getTextWidth(year, 8.6, true), y, { font: 'F2', size: 8.6, color: MUTED });
-    y -= 10;
+    y -= 11;
 
     doc.text(institute, leftX, y, { font: 'F1', size: 8.6, color: BODY });
     const resText = isAppeared ? 'Result Awaiting (Final Exams Appeared)' : `Result: ${resultOrStatus}`;
@@ -568,7 +569,10 @@ export function buildSinglePageResume() {
       size: 8.5,
       color: isAppeared ? BADGE_GREEN : PRIMARY,
     });
-    y -= 12;
+
+    if (!isLast) {
+      y -= 10;
+    }
   }
 
   drawEducation(
@@ -576,7 +580,8 @@ export function buildSinglePageResume() {
     'Mawlana Bhashani Science and Technology University (MBSTU), Tangail, Bangladesh',
     'Appeared',
     '2025 - Present',
-    true
+    true,
+    false
   );
 
   drawEducation(
@@ -584,6 +589,7 @@ export function buildSinglePageResume() {
     'Mawlana Bhashani Science and Technology University (MBSTU), Tangail, Bangladesh',
     'CGPA 3.07 / 4.00',
     '2020 - 2025',
+    false,
     false
   );
 
@@ -592,6 +598,7 @@ export function buildSinglePageResume() {
     'Govt. Debendra College, Manikganj, Dhaka Board',
     'GPA 4.25 / 5.00',
     '2018',
+    false,
     false
   );
 
@@ -600,70 +607,78 @@ export function buildSinglePageResume() {
     'Daragram High School, Manikganj, Dhaka Board',
     'GPA 4.89 / 5.00',
     '2016',
-    false
+    false,
+    true
   );
-  y -= 4;
+
+  y -= 17;
 
   // -------------------------------------------------------------------------
-  // 6. TRAINING & CERTIFICATIONS
+  // 6. TRAINING & CERTIFICATIONS (12 pt gap between certifications)
   // -------------------------------------------------------------------------
   drawSectionHeading('Professional Training & Certifications');
 
-  function drawCertification(title, issuer, date, desc) {
+  function drawCertification(title, issuer, date, desc, isLast = false) {
     doc.text(title, leftX, y, { font: 'F2', size: 9.3, color: PRIMARY });
     doc.text(date, rightX - getTextWidth(date, 8.5, true), y, { font: 'F2', size: 8.5, color: LINK });
-    y -= 9.5;
+    y -= 10.5;
 
     doc.text(issuer, leftX, y, { font: 'F2', size: 8.4, color: MUTED });
-    y -= 9;
+    y -= 10;
 
     doc.text(desc, leftX, y, { font: 'F1', size: 8.3, color: BODY });
-    y -= 12;
+
+    if (!isLast) {
+      y -= 12;
+    }
   }
 
   drawCertification(
     'Database (MySQL / Oracle / SQL) Professional Training (80 Hours)',
     'Dept. of ICT, MBSTU (EDGE Project, Bangladesh Computer Council, ICT Division)',
     'Dec 2024 - Jul 2025',
-    'Advanced relational modeling, 3NF normalization, index optimization, complex joins, triggers, stored procedures, and ACID transactions.'
+    'Advanced relational modeling, 3NF normalization, index optimization, complex joins, triggers, stored procedures, and ACID transactions.',
+    false
   );
 
   drawCertification(
     'Complete Web Development Course (MERN Stack)',
     'Programming Hero (Batch 10)',
     'Dec 2023 - Jun 2024',
-    'Intensive training in MongoDB, Express.js, React, Node.js, RESTful APIs, Firebase Authentication, and production deployments.'
+    'Intensive training in MongoDB, Express.js, React, Node.js, RESTful APIs, Firebase Authentication, and production deployments.',
+    false
   );
-  y -= 4;
+
+  y -= 17;
 
   // -------------------------------------------------------------------------
-  // 7. CORE COMPETENCIES & PROFESSIONAL ATTRIBUTES
+  // 7. KEY COMPETENCIES & ATTRIBUTES (Fills the page cleanly to Y ~ 45 pt)
   // -------------------------------------------------------------------------
-  drawSectionHeading('Core Competencies & Professional Attributes');
+  drawSectionHeading('Key Competencies & Professional Attributes');
 
-  const competencies = [
-    { name: 'Analytical Problem Solving', desc: 'Translating complex operational workflows into maintainable, modular software solutions.' },
-    { name: 'Database Architecture', desc: 'Relational schema normalization, NoSQL document modeling, indexing, and data integrity.' },
-    { name: 'Documentation & Compliance', desc: 'Rigorous attention to detail in technical documentation, API specifications, and process audits.' },
+  const compLines = [
+    { label: 'Engineering Best Practices', text: 'Modular clean architecture, RESTful API design, Git feature branching, and peer code reviews.' },
+    { label: 'Operational & Analytical Rigor', text: 'Translating complex operational workflows into maintainable software with thorough documentation.' }
   ];
 
-  for (const c of competencies) {
+  for (const c of compLines) {
     doc.setFillColor(...LINK);
-    doc.rect(leftX + 2, y - 5.5, 2.2, 2.2, true, false);
+    doc.rect(leftX + 2, y - 5, 2.2, 2.2, true, false);
 
-    doc.text(`${c.name}:`, leftX + 8, y - 6.5, { font: 'F2', size: 8.6, color: PRIMARY });
-    const nW = getTextWidth(`${c.name}:`, 8.6, true);
-    doc.text(c.desc, leftX + 12 + nW, y - 6.5, { font: 'F1', size: 8.4, color: BODY });
-    y -= 11.5;
+    doc.text(`${c.label}:`, leftX + 8, y - 6, { font: 'F2', size: 8.6, color: PRIMARY });
+    const lblW = getTextWidth(`${c.label}:`, 8.6, true);
+    doc.text(c.text, leftX + 12 + lblW, y - 6, { font: 'F1', size: 8.4, color: BODY });
+    y -= 12.5;
   }
 
-  // Bottom Footer
-  y -= 2;
+  // -------------------------------------------------------------------------
+  // Clean Bottom Footer (At Y = 30 and 18)
+  // -------------------------------------------------------------------------
   doc.setStrokeColor(...LINE);
   doc.setLineWidth(0.5);
-  doc.line(leftX, 26, rightX, 26);
-  doc.text('Md. Mazharul Islam | Full-Stack Developer Resume | Single-Page ATS Edition', leftX, 17, { font: 'F1', size: 7.8, color: MUTED });
-  doc.text('Verified & Updated November 2026', rightX - 138, 17, { font: 'F1', size: 7.8, color: MUTED });
+  doc.line(leftX, 30, rightX, 30);
+  doc.text('Md. Mazharul Islam | Full-Stack Developer Resume | Single-Page ATS Edition', leftX, 18, { font: 'F1', size: 7.8, color: MUTED });
+  doc.text('Verified & Updated November 2026', rightX - 138, 18, { font: 'F1', size: 7.8, color: MUTED });
 
   return doc.compile();
 }
