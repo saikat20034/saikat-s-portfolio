@@ -67,20 +67,24 @@ export const education = [
 
 export const skillGroups = [
   {
-    group: 'Frontend',
-    items: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'React', 'Tailwind CSS'],
+    group: 'Frontend Technologies',
+    items: ['React.js', 'JavaScript (ES6+)', 'Tailwind CSS', 'HTML5', 'CSS3', 'Vite', 'Framer Motion', 'Axios'],
   },
   {
-    group: 'Backend',
-    items: ['Node.js', 'Express.js', 'REST APIs', 'JWT Authentication'],
+    group: 'Backend & APIs',
+    items: ['Node.js', 'Express.js', 'RESTful APIs', 'JWT Authentication', 'Role-Based Access Control (RBAC)'],
   },
   {
-    group: 'Data & Tools',
-    items: ['MongoDB', 'MySQL / Oracle SQL', 'Git & GitHub', 'Firebase'],
+    group: 'Databases & Cloud',
+    items: ['MongoDB (Mongoose)', 'MySQL', 'Oracle SQL', 'Supabase', 'PostgreSQL', 'Firebase (Auth & Firestore)'],
   },
   {
-    group: 'Professional',
-    items: ['Documentation', 'Data Analysis', 'Process Compliance', 'Stakeholder Communication'],
+    group: 'Payments & Developer Tools',
+    items: ['Stripe Integration', 'Git', 'GitHub', 'VS Code', 'Postman', 'Vercel', 'Netlify', 'Surge', 'npm'],
+  },
+  {
+    group: 'Core Competencies',
+    items: ['Full-Stack Architecture', 'Database Schema Modeling', 'Technical Documentation', 'Process Compliance'],
   },
 ];
 

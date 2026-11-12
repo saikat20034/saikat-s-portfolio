@@ -1,27 +1,9 @@
 import { motion } from 'framer-motion';
-import { skillsFallback, certifications as certificationsFallback } from '../data/content';
-import { useLiveCollection } from '../firebase/useLiveCollection';
+import { skillGroups, certifications } from '../data/content';
 import Reveal, { SectionHeading } from './Reveal';
 import { HiOutlineBadgeCheck } from 'react-icons/hi';
 
-function groupSkills(flat) {
-  const groups = [];
-  const index = {};
-  for (const s of flat) {
-    if (!(s.group in index)) {
-      index[s.group] = groups.length;
-      groups.push({ group: s.group, items: [] });
-    }
-    groups[index[s.group]].items.push(s.name);
-  }
-  return groups;
-}
-
 export default function Skills() {
-  const { items: skillsFlat } = useLiveCollection('skills', skillsFallback);
-  const { items: certifications } = useLiveCollection('certifications', certificationsFallback);
-  const skillGroups = groupSkills(skillsFlat);
-
   return (
     <section id="skills" className="max-w-6xl mx-auto px-5 sm:px-8 py-24">
       <Reveal>

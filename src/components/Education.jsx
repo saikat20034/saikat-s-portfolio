@@ -1,11 +1,8 @@
 import { motion } from 'framer-motion';
-import { education as educationFallback } from '../data/content';
-import { useLiveCollection } from '../firebase/useLiveCollection';
+import { education } from '../data/content';
 import Reveal, { SectionHeading } from './Reveal';
 
 export default function Education() {
-  const { items: education } = useLiveCollection('education', educationFallback);
-
   return (
     <section id="education" className="bg-ink-800/60 border-y border-ink-700">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-24">

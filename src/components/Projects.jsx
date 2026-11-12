@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaCheckCircle } from 'react-icons/fa';
-import { projects as projectsFallback } from '../data/content';
-import { useLiveCollection } from '../firebase/useLiveCollection';
+import { projects } from '../data/content';
 import Reveal, { SectionHeading } from './Reveal';
 
 export default function Projects() {
-  const { items: projects } = useLiveCollection('projects', projectsFallback);
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const count = projects.length;
