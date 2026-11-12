@@ -4,13 +4,13 @@
  * 
  * Strict Specs:
  * - Exactly 1 Page (A4)
- * - Pure standard ASCII text (code points 32..126) - ZERO garbled Unicode artifacts
+ * - Exact content matching user CV specification
+ * - Pure standard ASCII text (code points 32..126) - ZERO Unicode artifacts
  * - Single-column linear layout for maximum ATS compatibility
  * - Mathematically balanced header spacing (justified across page margins)
- * - Harmonious, consistent vertical rhythm across all sections
- * - Clean clickable names: Gmail | GitHub | LinkedIn | Portfolio
- * - No WhatsApp
- * - No non-ASCII dash signs
+ * - Full email address visible (mazharulislamsaikat2000@gmail.com) with active mailto link
+ * - Clean clickable names: GitHub | LinkedIn | Portfolio
+ * - Harmonious, balanced vertical rhythm across all sections
  */
 
 import fs from 'fs';
@@ -145,7 +145,7 @@ class SinglePagePdf {
   }
 
   wrappedText(str, x, y, maxWidth, options = {}) {
-    const { font = 'F1', size = 8.7, lineHeight = 13.0, color = [0.15, 0.15, 0.15] } = options;
+    const { font = 'F1', size = 8.6, lineHeight = 12.8, color = [0.15, 0.15, 0.15] } = options;
     const isBold = font === 'F2' || font === 'F4';
     const words = str.split(' ');
     let currentLine = '';
@@ -255,7 +255,7 @@ class SinglePagePdf {
 }
 
 // -----------------------------------------------------------------------------------------
-// Build Clean 1-Page ATS-Friendly Resume
+// Build User-Specified 1-Page ATS-Friendly Resume
 // -----------------------------------------------------------------------------------------
 export function buildSinglePageResume() {
   const doc = new SinglePagePdf();
@@ -271,10 +271,10 @@ export function buildSinglePageResume() {
   const LINE = [0.82, 0.85, 0.90];         // #D1D9E6 Subtle Divider Line
   const BADGE_GREEN = [0.05, 0.52, 0.30];  // Emerald for "Appeared"
 
-  let y = doc.height - 36;
+  let y = doc.height - 34;
 
   // -------------------------------------------------------------------------
-  // 1. HEADER (Harmonious Spacing & Mathematically Justified Contact Bar)
+  // 1. HEADER (Harmonious Spacing & Justified Contact Bar)
   // -------------------------------------------------------------------------
   // Full Name
   doc.text('MD. MAZHARUL ISLAM (SAIKAT)', leftX, y, {
@@ -282,27 +282,27 @@ export function buildSinglePageResume() {
     size: 20,
     color: PRIMARY,
   });
-  y -= 18;
+  y -= 17;
 
-  // Subtitle (Clean comma, no non-ASCII characters)
+  // Subtitle
   doc.text('Full-Stack (MERN) Developer | ICT Graduate, MBSTU', leftX, y, {
     font: 'F2',
     size: 10.5,
     color: MUTED,
   });
-  y -= 17;
+  y -= 16;
 
-  // Contact Row: Evenly justified from leftX to rightX with mathematical symmetry
+  // Contact Row: Manikganj, Dhaka, Bangladesh | +880 1630 496007 | mazharulislamsaikat2000@gmail.com | GitHub | LinkedIn | Portfolio
   const contactItems = [
-    { text: 'Manikganj, Dhaka, Bangladesh', font: 'F1', size: 9, color: BODY, link: null },
-    { text: '+880 1630 496007', font: 'F1', size: 9, color: BODY, link: 'tel:+8801630496007' },
-    { text: 'Gmail', font: 'F2', size: 9, color: LINK, link: 'mailto:mazharulislamsaikat2000@gmail.com' },
-    { text: 'GitHub', font: 'F2', size: 9, color: LINK, link: 'https://github.com/saikat20034' },
-    { text: 'LinkedIn', font: 'F2', size: 9, color: LINK, link: 'https://www.linkedin.com/in/md-mazharul-islam-saikat-65bab2299/' },
-    { text: 'Portfolio', font: 'F2', size: 9, color: LINK, link: 'https://saikat20034.github.io/saikat-s-portfolio' },
+    { text: 'Manikganj, Dhaka, Bangladesh', font: 'F1', size: 8.4, color: BODY, link: null },
+    { text: '+880 1630 496007', font: 'F1', size: 8.4, color: BODY, link: 'tel:+8801630496007' },
+    { text: 'mazharulislamsaikat2000@gmail.com', font: 'F1', size: 8.4, color: LINK, link: 'mailto:mazharulislamsaikat2000@gmail.com' },
+    { text: 'GitHub', font: 'F2', size: 8.4, color: LINK, link: 'https://github.com/saikat20034' },
+    { text: 'LinkedIn', font: 'F2', size: 8.4, color: LINK, link: 'https://www.linkedin.com/in/md-mazharul-islam-saikat-65bab2299/' },
+    { text: 'Portfolio', font: 'F2', size: 8.4, color: LINK, link: 'https://saikat20034.github.io/saikat-s-portfolio' },
   ];
 
-  const pipeWidth = getTextWidth('|', 9, false);
+  const pipeWidth = getTextWidth('|', 8.4, false);
   let totalTextWidth = 0;
   for (const item of contactItems) {
     totalTextWidth += getTextWidth(item.text, item.size, item.font === 'F2');
@@ -324,7 +324,7 @@ export function buildSinglePageResume() {
 
     if (i < contactItems.length - 1) {
       curX += sideGap;
-      doc.text('|', curX, y, { font: 'F1', size: 9, color: LINE });
+      doc.text('|', curX, y, { font: 'F1', size: 8.4, color: LINE });
       curX += pipeWidth + sideGap;
     }
   }
@@ -333,7 +333,7 @@ export function buildSinglePageResume() {
   doc.setStrokeColor(...LINE);
   doc.setLineWidth(0.75);
   doc.line(leftX, y, rightX, y);
-  y -= 17;
+  y -= 16;
 
   // Consistent Section Heading Function
   function drawSectionHeading(heading) {
@@ -341,7 +341,7 @@ export function buildSinglePageResume() {
     doc.setStrokeColor(...PRIMARY);
     doc.setLineWidth(1.0);
     doc.line(leftX, y - 3.5, rightX, y - 3.5);
-    y -= 12.5;
+    y -= 13.5;
   }
 
   // -------------------------------------------------------------------------
@@ -354,10 +354,10 @@ export function buildSinglePageResume() {
   const { endY: sumY } = doc.wrappedText(summary, leftX, y, contentWidth, {
     font: 'F1',
     size: 8.7,
-    lineHeight: 12.8,
+    lineHeight: 13.3,
     color: BODY,
   });
-  y = sumY - 16;
+  y = sumY - 17;
 
   // -------------------------------------------------------------------------
   // 3. TECHNICAL SKILLS
@@ -379,12 +379,12 @@ export function buildSinglePageResume() {
     doc.text(`${sk.label}:`, leftX + 8, y - 6.5, { font: 'F2', size: 8.7, color: PRIMARY });
     const lblW = getTextWidth(`${sk.label}:`, 8.7, true);
     doc.text(sk.items, leftX + 12 + lblW, y - 6.5, { font: 'F1', size: 8.5, color: BODY });
-    y -= 13.5;
+    y -= 14.2;
   }
-  y -= 6;
+  y -= 6.5;
 
   // -------------------------------------------------------------------------
-  // 4. FEATURED PROJECTS (Generous 14 pt spacing between projects)
+  // 4. FEATURED TECHNICAL PROJECTS (13 pt spacing between projects)
   // -------------------------------------------------------------------------
   drawSectionHeading('Featured Technical Projects');
 
@@ -443,7 +443,7 @@ export function buildSinglePageResume() {
         wIdx++;
       }
       doc.text(line1, indent + prefixW, y - 5, { font: 'F1', size: 8.5, color: BODY });
-      y -= 12;
+      y -= 11.8;
 
       let restLine = '';
       const fullLineWidth = contentWidth - 13;
@@ -451,7 +451,7 @@ export function buildSinglePageResume() {
         const test = restLine ? restLine + ' ' + words[wIdx] : words[wIdx];
         if (getTextWidth(test, 8.5, false) > fullLineWidth && restLine) {
           doc.text(restLine, indent, y - 5, { font: 'F1', size: 8.5, color: BODY });
-          y -= 12;
+          y -= 11.8;
           restLine = words[wIdx];
         } else {
           restLine = test;
@@ -460,13 +460,12 @@ export function buildSinglePageResume() {
       }
       if (restLine) {
         doc.text(restLine, indent, y - 5, { font: 'F1', size: 8.5, color: BODY });
-        y -= 12;
+        y -= 11.8;
       }
     }
 
-    // Inter-project gap: 14 pt for clean distinct separation
     if (!isLast) {
-      y -= 11;
+      y -= 12;
     }
   }
 
@@ -498,7 +497,7 @@ export function buildSinglePageResume() {
     [
       {
         prefix: 'Automated Ledger: ',
-        text: 'Automated meal scheduling and dynamic meal rate computation eliminating manual calculation errors for university flat residents.'
+        text: 'Automated meal scheduling and dynamic meal rate computation, eliminating manual calculation errors for university flat residents.'
       },
       {
         prefix: 'Financial Audit: ',
@@ -532,7 +531,7 @@ export function buildSinglePageResume() {
 
   y -= 9;
 
-  // Additional projects line
+  // Other Projects
   doc.text('Other Projects:', leftX + 8, y, { font: 'F2', size: 8.3, color: MUTED });
   doc.text(
     'HotelHive (hotel booking & room reservation system), VisaLand (international visa guidance and application tracking portal)',
@@ -540,10 +539,10 @@ export function buildSinglePageResume() {
     y,
     { font: 'F1', size: 8.3, color: BODY }
   );
-  y -= 17;
+  y -= 16;
 
   // -------------------------------------------------------------------------
-  // 5. EDUCATION (Consistent 10 pt gap between degree entries)
+  // 5. EDUCATION
   // -------------------------------------------------------------------------
   drawSectionHeading('Education');
 
@@ -563,7 +562,7 @@ export function buildSinglePageResume() {
     y -= 11;
 
     doc.text(institute, leftX, y, { font: 'F1', size: 8.6, color: BODY });
-    const resText = isAppeared ? 'Result Awaiting (Final Exams Appeared)' : `Result: ${resultOrStatus}`;
+    const resText = isAppeared ? 'Result Awaiting (Final Exams Appeared)' : resultOrStatus;
     doc.text(resText, rightX - getTextWidth(resText, 8.5, false), y, {
       font: isAppeared ? 'F2' : 'F1',
       size: 8.5,
@@ -571,14 +570,14 @@ export function buildSinglePageResume() {
     });
 
     if (!isLast) {
-      y -= 10;
+      y -= 11;
     }
   }
 
   drawEducation(
     'M.Sc. in Information and Communication Technology',
     'Mawlana Bhashani Science and Technology University (MBSTU), Tangail, Bangladesh',
-    'Appeared',
+    'Result Awaiting (Final Exams Appeared)',
     '2025 - Present',
     true,
     false
@@ -587,7 +586,7 @@ export function buildSinglePageResume() {
   drawEducation(
     'B.Sc. (Honours) in Information and Communication Technology',
     'Mawlana Bhashani Science and Technology University (MBSTU), Tangail, Bangladesh',
-    'CGPA 3.07 / 4.00',
+    'Result: CGPA 3.07 / 4.00',
     '2020 - 2025',
     false,
     false
@@ -595,8 +594,8 @@ export function buildSinglePageResume() {
 
   drawEducation(
     'Higher Secondary Certificate (H.S.C.) - Science Group',
-    'Govt. Debendra College, Manikganj, Dhaka Board',
-    'GPA 4.25 / 5.00',
+    'Govt. Debendra College, Manikganj, Dhaka',
+    'Board Result: GPA 4.25 / 5.00',
     '2018',
     false,
     false
@@ -604,21 +603,21 @@ export function buildSinglePageResume() {
 
   drawEducation(
     'Secondary School Certificate (S.S.C.) - Science Group',
-    'Daragram High School, Manikganj, Dhaka Board',
-    'GPA 4.89 / 5.00',
+    'Daragram High School, Manikganj, Dhaka',
+    'Board Result: GPA 4.89 / 5.00',
     '2016',
     false,
     true
   );
 
-  y -= 17;
+  y -= 16;
 
   // -------------------------------------------------------------------------
-  // 6. TRAINING & CERTIFICATIONS (12 pt gap between certifications)
+  // 6. PROFESSIONAL TRAINING & CERTIFICATIONS
   // -------------------------------------------------------------------------
   drawSectionHeading('Professional Training & Certifications');
 
-  function drawCertification(title, issuer, date, desc, isLast = false) {
+  function drawCertification(title, issuer, date, focus, isLast = false) {
     doc.text(title, leftX, y, { font: 'F2', size: 9.3, color: PRIMARY });
     doc.text(date, rightX - getTextWidth(date, 8.5, true), y, { font: 'F2', size: 8.5, color: LINK });
     y -= 10.5;
@@ -626,7 +625,7 @@ export function buildSinglePageResume() {
     doc.text(issuer, leftX, y, { font: 'F2', size: 8.4, color: MUTED });
     y -= 10;
 
-    doc.text(desc, leftX, y, { font: 'F1', size: 8.3, color: BODY });
+    doc.text(focus, leftX, y, { font: 'F1', size: 8.3, color: BODY });
 
     if (!isLast) {
       y -= 12;
@@ -637,7 +636,7 @@ export function buildSinglePageResume() {
     'Database (MySQL / Oracle / SQL) Professional Training (80 Hours)',
     'Dept. of ICT, MBSTU (EDGE Project, Bangladesh Computer Council, ICT Division)',
     'Dec 2024 - Jul 2025',
-    'Advanced relational modeling, 3NF normalization, index optimization, complex joins, triggers, stored procedures, and ACID transactions.',
+    'Focus: Advanced relational modeling, 3NF normalization, index optimization, complex joins, triggers, stored procedures, and ACID transactions.',
     false
   );
 
@@ -645,14 +644,14 @@ export function buildSinglePageResume() {
     'Complete Web Development Course (MERN Stack)',
     'Programming Hero (Batch 10)',
     'Dec 2023 - Jun 2024',
-    'Intensive training in MongoDB, Express.js, React, Node.js, RESTful APIs, Firebase Authentication, and production deployments.',
-    false
+    'Focus: Intensive training in MongoDB, Express.js, React, Node.js, RESTful APIs, Firebase Authentication, and production deployments.',
+    true
   );
 
-  y -= 17;
+  y -= 16;
 
   // -------------------------------------------------------------------------
-  // 7. KEY COMPETENCIES & ATTRIBUTES (Fills the page cleanly to Y ~ 45 pt)
+  // 7. KEY COMPETENCIES & PROFESSIONAL ATTRIBUTES
   // -------------------------------------------------------------------------
   drawSectionHeading('Key Competencies & Professional Attributes');
 
@@ -668,11 +667,11 @@ export function buildSinglePageResume() {
     doc.text(`${c.label}:`, leftX + 8, y - 6, { font: 'F2', size: 8.6, color: PRIMARY });
     const lblW = getTextWidth(`${c.label}:`, 8.6, true);
     doc.text(c.text, leftX + 12 + lblW, y - 6, { font: 'F1', size: 8.4, color: BODY });
-    y -= 12.5;
+    y -= 13;
   }
 
   // -------------------------------------------------------------------------
-  // Clean Bottom Footer (At Y = 30 and 18)
+  // Clean Bottom Footer Rule
   // -------------------------------------------------------------------------
   doc.setStrokeColor(...LINE);
   doc.setLineWidth(0.5);
