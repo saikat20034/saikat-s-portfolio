@@ -196,7 +196,7 @@ export default function Hero() {
             <img
               src={profile.heroPhoto || profile.photo}
               alt={profile.name}
-              className="w-full h-full object-cover object-top contrast-[1.03] transition-all duration-500 group-hover:scale-105"
+              className="w-full h-full object-cover object-top transition-all duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 border border-brass-500/20 pointer-events-none group-hover:border-brass-500/60 transition-colors" />
           </motion.div>

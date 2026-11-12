@@ -19,7 +19,7 @@ export default function About() {
             <img
               src={profile.aboutPhoto || profile.photo}
               alt={profile.name}
-              className="w-full aspect-[3/4] object-cover object-top contrast-[1.03] transition-all duration-500 group-hover:scale-105"
+              className="w-full aspect-[3/4] object-cover object-top transition-all duration-500 group-hover:scale-105"
             />
           </motion.div>
         </Reveal>
